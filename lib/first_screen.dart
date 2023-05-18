@@ -41,22 +41,12 @@ class _FirstScreenState extends State<FirstScreen> {
   }
 
   Future<void> getData() async {
-    var uri = Uri.parse('https://jsonplaceholder.typicode.com/users/1');
+    var uri = Uri.parse('https://jsonplaceholder.typicode.com/todos');
     Response response = await get(uri);
 
-    print(response.body);
-    String city = jsonDecode(response.body)['address']['geo']['lat'];
-
-    print(city);
-    // String jsonTitle = jsonDecode(response.body)['title'];
-    // int jsonUserID = jsonDecode(response.body)['userId'];
-    // int jsonID = jsonDecode(response.body)['id'];
-    // bool jsonCompleted = jsonDecode(response.body)['completed'];
-    // setState(() {
-    //   title = jsonTitle;
-    //   userId = jsonUserID;
-    //   id = jsonID;
-    //   isDone = jsonCompleted;
-    // });
+    for (int i = 0; i <= 199; i++) {
+      String title = jsonDecode(response.body)[i]['title'];
+      print(title);
+    }
   }
 }
