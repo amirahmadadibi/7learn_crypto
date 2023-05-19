@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
@@ -41,12 +42,9 @@ class _FirstScreenState extends State<FirstScreen> {
   }
 
   Future<void> getData() async {
-    var uri = Uri.parse('https://jsonplaceholder.typicode.com/todos');
-    Response response = await get(uri);
-
-    for (int i = 0; i <= 199; i++) {
-      String title = jsonDecode(response.body)[i]['title'];
-      print(title);
-    }
+    var dio = Dio();
+    var response =
+        await dio.get('https://jsonplaceholder.typicode.com/users/1');
+    print(response.data['name']);
   }
 }
