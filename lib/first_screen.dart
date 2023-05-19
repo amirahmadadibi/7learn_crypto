@@ -44,12 +44,10 @@ class _FirstScreenState extends State<FirstScreen> {
 
   Future<void> getData() async {
     var dio = Dio();
-    var response =
-        await dio.get('https://jsonplaceholder.typicode.com/users/1');
-    Map<String, dynamic> data = response.data;
-    User user1 = User.fromJson(data);
-    print(user1.id);
-    print(user1.username);
-    print(user1.city);
+    var response = await dio.get('https://jsonplaceholder.typicode.com/users');
+    //response.data List<Map<Stirng,dynamic>>
+    List<User> userList = response.data.map<User>((jsonMapObject) {
+      return User.fromJson(jsonMapObject);
+    }).toList();
   }
 }
