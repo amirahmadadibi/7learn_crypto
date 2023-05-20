@@ -69,6 +69,7 @@ class _FirstScreenState extends State<FirstScreen> {
                       style: TextStyle(fontSize: 20)),
                 ],
               ),
+              getArraowWidget(cryptoList[index].changeInPersent),
               SizedBox(
                 width: 8,
               ),
@@ -77,6 +78,20 @@ class _FirstScreenState extends State<FirstScreen> {
         );
       },
     ));
+  }
+
+  Widget getArraowWidget(double changeInPersent) {
+    if (changeInPersent < 0) {
+      return Icon(
+        Icons.arrow_downward,
+        color: Colors.red,
+      );
+    } else {
+      return Icon(
+        Icons.arrow_upward,
+        color: Colors.green,
+      );
+    }
   }
 
   Future<void> getData() async {
