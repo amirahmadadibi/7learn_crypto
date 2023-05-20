@@ -30,9 +30,21 @@ class _FirstScreenState extends State<FirstScreen> {
           margin: EdgeInsets.only(bottom: 10),
           child: Row(
             children: [
+              SizedBox(
+                width: 8,
+              ),
               Text(
                 '${cryptoList[index].rank}',
                 style: TextStyle(fontSize: 20),
+              ),
+              SizedBox(
+                width: 8,
+              ),
+              Container(
+                height: 50,
+                width: 50,
+                child: Image.network(
+                    'https://assets.coincap.io/assets/icons/${cryptoList[index].symbol.toLowerCase()}@2x.png'),
               ),
               SizedBox(
                 width: 8,
@@ -56,7 +68,10 @@ class _FirstScreenState extends State<FirstScreen> {
                   Text(cryptoList[index].changeInPersent.toStringAsFixed(2),
                       style: TextStyle(fontSize: 20)),
                 ],
-              )
+              ),
+              SizedBox(
+                width: 8,
+              ),
             ],
           ),
         );
