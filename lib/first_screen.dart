@@ -27,11 +27,37 @@ class _FirstScreenState extends State<FirstScreen> {
       itemBuilder: (context, index) {
         return Container(
           height: 100,
-          color: Colors.red,
           margin: EdgeInsets.only(bottom: 10),
-          child: Text(
-            cryptoList[index].name,
-            style: TextStyle(fontSize: 30),
+          child: Row(
+            children: [
+              Text(
+                '${cryptoList[index].rank}',
+                style: TextStyle(fontSize: 20),
+              ),
+              SizedBox(
+                width: 8,
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(cryptoList[index].name, style: TextStyle(fontSize: 20)),
+                  Text(cryptoList[index].symbol,
+                      style: TextStyle(fontSize: 20)),
+                ],
+              ),
+              Spacer(),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text(cryptoList[index].priceUSD.toStringAsFixed(2),
+                      style: TextStyle(fontSize: 20)),
+                  Text(cryptoList[index].changeInPersent.toStringAsFixed(2),
+                      style: TextStyle(fontSize: 20)),
+                ],
+              )
+            ],
           ),
         );
       },
@@ -42,10 +68,11 @@ class _FirstScreenState extends State<FirstScreen> {
     var dio = Dio();
     var response = await dio.get('https://api.coincap.io/v2/assets');
 
-    List<Crypto> cryptoDataList =  response.data['data'].map<Crypto>((jsonMapObject) {
+    List<Crypto> cryptoDataList =
+        response.data['data'].map<Crypto>((jsonMapObject) {
       return Crypto.fromJson(jsonMapObject);
     }).toList();
-   
+
     setState(() {
       cryptoList = cryptoDataList;
     });
