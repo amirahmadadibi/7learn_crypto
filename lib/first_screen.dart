@@ -13,41 +13,43 @@ class FirstScreen extends StatefulWidget {
 }
 
 class _FirstScreenState extends State<FirstScreen> {
-  String title = '';
-  int userId = 0;
-  int id = 0;
-  bool isDone = false;
+  List<User> userList = [];
+
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text('title -> $title'),
-            Text('user id -> $userId'),
-            Text('id -> $id'),
-            Text((isDone) ? 'completed -> yes' : 'completed -> no'),
-            ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    title = 'loading...';
-                  });
-                  getData();
-                },
-                child: Text('Get Data From API'))
-          ],
-        ),
-      ),
-    );
+        body: ListView.builder(
+      itemCount: userList.length,
+      itemBuilder: (context, index) {
+        return Container(
+          height: 100,
+          color: Colors.red,
+          margin: EdgeInsets.only(bottom: 10),
+          child: Text(
+            userList[index].name,
+            style: TextStyle(fontSize: 30),
+          ),
+        );
+      },
+    ));
   }
 
   Future<void> getData() async {
     var dio = Dio();
     var response = await dio.get('https://jsonplaceholder.typicode.com/users');
     //response.data List<Map<Stirng,dynamic>>
-    List<User> userList = response.data.map<User>((jsonMapObject) {
+    List<User> userDataList = response.data.map<User>((jsonMapObject) {
       return User.fromJson(jsonMapObject);
     }).toList();
+
+    setState(() {
+      userList = userDataList;
+    });
   }
 }
