@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:lifecycle/crypto.dart';
 import 'package:lifecycle/user.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class FirstScreen extends StatefulWidget {
   const FirstScreen({super.key});
@@ -41,10 +42,21 @@ class _FirstScreenState extends State<FirstScreen> {
                 width: 8,
               ),
               Container(
-                height: 50,
-                width: 50,
-                child: Image.network(
-                    'https://assets.coincap.io/assets/icons/${cryptoList[index].symbol.toLowerCase()}@2x.png'),
+                height: 40,
+                width: 40,
+                child: CachedNetworkImage(
+                  imageUrl:
+                      'https://assets.coincap.io/assets/icons/${cryptoList[index].symbol.toLowerCase()}@2x.png',
+                  placeholder: (context, url) {
+                    return Container(
+                      height: 40,
+                      width: 40,
+                      decoration: BoxDecoration(
+                          color: Colors.grey[200],
+                          borderRadius: BorderRadius.circular(12)),
+                    );
+                  },
+                ),
               ),
               SizedBox(
                 width: 8,
